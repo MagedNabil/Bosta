@@ -4,9 +4,26 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import SearchIcon from '@mui/icons-material/Search';
 import "@fontsource/cairo";
+import { useState, useEffect } from 'react';
 
 
 export default function BasicTextFields() {
+
+    const [data, setData] = useState();
+
+    const getApiData = async () => {
+        const response = await fetch(
+            "https://tracking.bosta.co/shipments/track/7234258?lang=ar"
+        ).then((response) => response.json());
+        setData(response);
+    };
+    useEffect(() => {
+        getApiData();
+    }, []);
+    useEffect(() => {
+        console.log(data)
+    }, [data]);
+
     return (
         <section style={{
             paddingTop: '70px'
