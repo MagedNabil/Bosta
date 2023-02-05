@@ -9,14 +9,14 @@ import "@fontsource/cairo";
 export default function BasicTextFields() {
     return (
         <section style={{
-            paddingTop: '50px'
+            paddingTop: '70px'
 
         }}>
             <span style={{
                 fontFamily: 'cairo',
                 fontSize: '20px',
                 fontWeight: 400,
-                color: 'gray',
+                color: '#475467',
                 textDecoration: 'none',
             }}>تتبع شحنتك</span>
             <Box
@@ -35,7 +35,7 @@ export default function BasicTextFields() {
             >
 
                 <TextField id="standard-basic" label="رقم التتبع" variant="standard" style={{ textAlign: 'right' }} />
-                <Button style={{ backgroundColor: "red", color: 'white', width: '25px', height: '40px', borderRadius: '25px' }}>
+                <Button style={{ backgroundColor: "#E30613", color: 'white', width: '25px', height: '40px', borderRadius: '25px' }}>
                     <SearchIcon />
                 </Button>
             </Box>

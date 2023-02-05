@@ -30,7 +30,7 @@ function ResponsiveAppBar() {
                             fontFamily: 'cairo',
                             fontSize: '30px',
                             fontWeight: 900,
-                            color: 'red',
+                            color: '#E30613',
                             textDecoration: 'none',
                         }}>بوسطة</span>
 

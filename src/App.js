@@ -1,6 +1,9 @@
 import './App.css';
 import ResponsiveAppBar from './components/Navbar'
 import BasicTextFields from './components/Search'
+// import ResultF from './components/ResultF'
+import ResultT from './components/ResultT'
+
 
 
 function App() {
@@ -9,6 +12,8 @@ function App() {
 
       <ResponsiveAppBar />
       <BasicTextFields />
+      {/* <ResultF /> */}
+      <ResultT />
     </div>
   );
 }

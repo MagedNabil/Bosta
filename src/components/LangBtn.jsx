@@ -25,7 +25,7 @@ export default function BasicMenu() {
                     fontFamily: 'cairo',
                     fontSize: '20px',
                     fontWeight: 900,
-                    color: 'gray'
+                    color: '#475467'
                 }}
             >
                 عربى
