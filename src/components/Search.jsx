@@ -6,11 +6,19 @@ import SearchIcon from '@mui/icons-material/Search';
 import "@fontsource/cairo";
 import { useState, useEffect } from 'react';
 
+import { useDispatch } from "react-redux";
+import { bindActionCreators } from 'redux'
+import { actionCreators } from "../state/index"
 
 export default function BasicTextFields() {
 
-    const [data, setData] = useState();
 
+
+    const dispatch = useDispatch();
+    const { writeData } = bindActionCreators(actionCreators, dispatch);
+
+
+    const [data, setData] = useState();
     const getApiData = async () => {
         const response = await fetch(
             "https://tracking.bosta.co/shipments/track/7234258?lang=ar"
@@ -20,9 +28,6 @@ export default function BasicTextFields() {
     useEffect(() => {
         getApiData();
     }, []);
-    useEffect(() => {
-        console.log(data)
-    }, [data]);
 
     return (
         <section style={{
@@ -52,7 +57,8 @@ export default function BasicTextFields() {
             >
 
                 <TextField id="standard-basic" label="رقم التتبع" variant="standard" style={{ textAlign: 'right' }} />
-                <Button style={{ backgroundColor: "#E30613", color: 'white', width: '25px', height: '40px', borderRadius: '25px' }}>
+                <Button onClick={writeData(data)}
+                    style={{ backgroundColor: "#E30613", color: 'white', width: '25px', height: '40px', borderRadius: '25px' }}>
                     <SearchIcon />
                 </Button>
             </Box>

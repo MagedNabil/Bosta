@@ -1,9 +1,14 @@
 import React from 'react';
 import "@fontsource/cairo";
+// import { useSelector } from 'react-redux'
 
 
 
 const ResultT = () => {
+
+    // const state = useSelector((state) => state.data);
+    // console.log(state)
+
     return (
         <div style={{
             paddingTop: '50px'
