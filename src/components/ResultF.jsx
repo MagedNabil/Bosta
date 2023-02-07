@@ -3,9 +3,24 @@ import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Stack from '@mui/material/Stack';
 import "@fontsource/cairo";
-
+import { useSelector } from 'react-redux'
+import { useState, useEffect } from 'react';
 
 export default function ResultF() {
+
+
+    const data = useSelector((state) => state.store.data);
+
+    const [trackNum, setTrackNum] = useState();
+
+
+    useEffect(() => {
+        setTrackNum(data.TrackingNumber)
+
+    }, [data.TrackingNumber, trackNum]);
+
+
+
     return (
         <section style={{
             paddingTop: '50px'
@@ -17,7 +32,7 @@ export default function ResultF() {
                 fontWeight: 600,
                 color: '#475467',
                 textDecoration: 'none',
-            }}>  رقم الشحنة </span>
+            }}>  رقم الشحنة {trackNum}</span>
             <Stack sx={{ width: '100%', textAlign: 'center' }} spacing={2} >
                 <Alert severity="warning" style={{ borderRadius: "5px", margin: "5%" }}>
                     <AlertTitle style={{

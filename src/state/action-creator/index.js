@@ -1,8 +1,9 @@
 
-export const readData = (data) => {
+export const writeResult = (result) => {
     return (dispatch) => {
         dispatch({
-            type: "readData"
+            type: "writeResult",
+            payload: result
         });
     }
 }

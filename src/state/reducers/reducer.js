@@ -8,7 +8,8 @@ const reducer = (
     action
 ) => {
     switch (action.type) {
-        case "readData":
+        case "writeResult":
+            state.result = action.payload
             return state;
         case "writeData":
             state.data = action.payload

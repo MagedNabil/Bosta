@@ -1,13 +1,32 @@
 import React from 'react';
 import "@fontsource/cairo";
-// import { useSelector } from 'react-redux'
-
+import { useSelector } from 'react-redux'
+import { useState, useEffect } from 'react';
+import dateFormat from 'dateformat';
+import { logRoles } from '@testing-library/react';
 
 
 const ResultT = () => {
 
-    // const state = useSelector((state) => state.data);
-    // console.log(state)
+    const data = useSelector((state) => state.store.data);
+
+    const [trackNum, setTrackNum] = useState();
+    const [shipmentState, setshipmentState] = useState();
+    const [timeStamp, setSimeStamp] = useState();
+    const [transitEvents, setTransitEvents] = useState();
+    const [shipmentStateDTS, setTransitEventsDTS] = useState();
+
+    useEffect(() => {
+        setTrackNum(data.TrackingNumber)
+        setshipmentState(data.CurrentStatus.state)
+        if (shipmentState === "DELIVERED") { setTransitEventsDTS(true) } else { setTransitEventsDTS(false) }
+        setSimeStamp(dateFormat(data.CurrentStatus.timestamp, "dddd, mmmm dS, yyyy"))
+        setTransitEvents(data.TransitEvents)
+    }, [data.TrackingNumber, data.CurrentStatus.state, data.CurrentStatus.timestamp, trackNum, shipmentState, timeStamp, transitEvents, data.TransitEvents, shipmentStateDTS]);
+
+
+
+
 
     return (
         <div style={{
@@ -20,14 +39,14 @@ const ResultT = () => {
                 fontWeight: 600,
                 color: '#475467',
                 textDecoration: 'none',
-            }}> 654654 رقم الشحنة </span><br></br>
+            }}>  رقم الشحنة {trackNum}</span><br></br>
             <span style={{
                 fontFamily: 'cairo',
                 fontSize: '28px',
                 fontWeight: 600,
                 color: '#111619',
                 textDecoration: 'none',
-            }}>   تم تسليم الاوردر </span>
+            }}>   {shipmentState} </span>
             <div style={{
                 display: 'flex',
                 alignContent: 'center',
@@ -38,7 +57,10 @@ const ResultT = () => {
             }}>
                 <hr style={{ width: '30%', height: '20%', backgroundColor: '#0098A5', border: '5px #0098A5', borderRadius: "0px 5px 5px 0px" }}></hr>
                 <hr style={{ width: '30%', height: '20%', backgroundColor: '#0098A5', border: '5px #0098A5', }}></hr>
-                <hr style={{ width: '30%', height: '20%', backgroundColor: '#0098A5', border: '5px #0098A5', borderRadius: "5px 0px 0px 5px" }}></hr>
+                {shipmentStateDTS ? <hr style={{ width: '30%', height: '20%', backgroundColor: '#0098A5', border: '5px #0098A5', borderRadius: "5px 0px 0px 5px" }}></hr>
+                    : <hr style={{ width: '30%', height: '20%', backgroundColor: '#D9F4A8', border: '5px #D9F4A8', borderRadius: "5px 0px 0px 5px" }}></hr>
+                }
+
             </div>
             <span style={{
                 fontFamily: 'cairo',
@@ -46,15 +68,15 @@ const ResultT = () => {
                 fontWeight: 600,
                 color: '#111619',
                 textDecoration: 'none',
-            }}>  التاجر طلب استلام الشحنة, سنقوم بالاستلام قريبا سبت, ٢٢ مايو ٢٠٢١</span><br></br>
+            }}> {timeStamp} </span><br></br>
             <span style={{
                 fontFamily: 'cairo',
                 fontSize: '14px',
                 fontWeight: 600,
                 color: '#667085',
                 textDecoration: 'none',
-            }}> اخر تحديث منذ 624 يوم مضت</span>
-        </div>
+            }}> اخر تحديث منذ  يوم مضت</span>
+        </div >
     );
 };
 

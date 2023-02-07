@@ -4,30 +4,59 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import SearchIcon from '@mui/icons-material/Search';
 import "@fontsource/cairo";
-import { useState, useEffect } from 'react';
-
+import { useState, useCallback, useEffect } from 'react';
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from 'redux'
 import { actionCreators } from "../state/index"
 
-export default function BasicTextFields() {
-
+export default function SearchFields(props) {
 
 
     const dispatch = useDispatch();
-    const { writeData } = bindActionCreators(actionCreators, dispatch);
+    const { writeResult, writeData } = bindActionCreators(actionCreators, dispatch);
+
+    const [trackNum, setTrackNum] = useState(null);
 
 
     const [data, setData] = useState();
-    const getApiData = async () => {
+    const getApiData = useCallback(async (trackNum) => {
         const response = await fetch(
-            "https://tracking.bosta.co/shipments/track/7234258?lang=ar"
+            `https://tracking.bosta.co/shipments/track/${trackNum}`
         ).then((response) => response.json());
         setData(response);
-    };
+    }, [])
+
     useEffect(() => {
-        getApiData();
-    }, []);
+        if (trackNum !== null) { getApiData(trackNum) }
+    }, [trackNum, getApiData]);
+
+
+    const handleChange = (e) => {
+        const { value } = e.target;
+        setTrackNum(value);
+    };
+
+    const handleClick = useCallback(
+        (e) => {
+            if (trackNum !== null) {
+                if (data.status === "Not Found.") {
+                    writeData(data)
+                    writeResult(false)
+                    props.handleResult(false)
+                }
+                else {
+                    writeData(data)
+                    writeResult(true)
+                    props.handleResult(true + 1)
+                }
+            }
+
+        }
+        ,
+        [writeData, data, trackNum, writeResult, props]
+    );
+
+
 
     return (
         <section style={{
@@ -56,8 +85,8 @@ export default function BasicTextFields() {
                 }}
             >
 
-                <TextField id="standard-basic" label="رقم التتبع" variant="standard" style={{ textAlign: 'right' }} />
-                <Button onClick={writeData(data)}
+                <TextField onChange={handleChange} id="standard-basic" label="رقم التتبع" variant="standard" style={{ textAlign: 'right' }} />
+                <Button onClick={handleClick}
                     style={{ backgroundColor: "#E30613", color: 'white', width: '25px', height: '40px', borderRadius: '25px' }}>
                     <SearchIcon />
                 </Button>
