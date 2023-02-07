@@ -3,7 +3,6 @@ import "@fontsource/cairo";
 import { useSelector } from 'react-redux'
 import { useState, useEffect } from 'react';
 import dateFormat from 'dateformat';
-import { logRoles } from '@testing-library/react';
 
 
 const ResultT = () => {
