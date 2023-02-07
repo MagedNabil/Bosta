@@ -17,7 +17,6 @@ export default function SearchFields(props) {
 
     const [trackNum, setTrackNum] = useState(null);
 
-
     const [data, setData] = useState();
     const getApiData = useCallback(async (trackNum) => {
         const response = await fetch(

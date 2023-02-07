@@ -27,7 +27,6 @@ function App() {
 
       <ResponsiveAppBar />
       <SearchFields handleResult={handleResult} />
-
       {result !== null ? result ? <ResultT /> : <ResultF /> : ''}
 
     </div>

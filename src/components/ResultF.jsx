@@ -10,7 +10,6 @@ export default function ResultF() {
 
 
     const data = useSelector((state) => state.store.data);
-
     const [trackNum, setTrackNum] = useState();
 
 
